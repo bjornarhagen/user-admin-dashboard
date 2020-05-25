@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'CustomerController@index')->name('index');
 
 // Customers
 Route::get('customers', 'CustomerController@index')->name('customer.index');
@@ -23,7 +21,8 @@ Route::get('customers', 'CustomerController@index')->name('customer.index');
 // The customer's users
 Route::get('customer/{customer}/users', 'UserController@index')->name('user.index');
 Route::prefix('customer/{customer}/user')->group(function () {
-    Route::post('/', 'UserController@store')->name('user.store');
+    Route::get('/create', 'UserController@create')->name('user.create');
+    Route::post('/create', 'UserController@store')->name('user.store');
 
     Route::prefix('{user}')->group(function () {
         Route::get('/', 'UserController@show')->name('user.show');
