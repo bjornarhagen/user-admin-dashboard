@@ -10,8 +10,8 @@ class CustomerController extends Controller
     // Display a listing of customers.
     public function index(Request $request)
     {
-        $customers = Customer::all()->paginate(100);
+        $customers = Customer::all();
 
-        return $customers;
+        return view('customers.index', compact('customers'));
     }
 }
