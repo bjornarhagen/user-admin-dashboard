@@ -11,8 +11,8 @@ class UserController extends Controller
     // Display a listing of users.
     public function index(Request $request, Customer $customer)
     {
-        $users = $customer->users->paginate(100);
-        return view('users.index', compact('users'));
+        $users = $customer->users;
+        return view('users.index', compact('customer', 'users'));
     }
 
     // Show the form for creating a new user.
