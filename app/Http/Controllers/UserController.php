@@ -18,7 +18,7 @@ class UserController extends Controller
     // Show the form for creating a new user.
     public function create(Customer $customer, User $user)
     {
-        return view('user.create', compact('user'));
+        return view('users.create', compact('customer', 'user'));
     }
 
     // Store a newly created user in storage.
