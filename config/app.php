@@ -229,4 +229,10 @@ return [
 
     ],
 
+    'privacy_policy_url' => env('APP_PRIVACY_POLICY_URL'),
+
+    'company' => [
+        'name' => env('COMPANY_NAME'),
+        'url' => env('COMPANY_URL')
+    ]
 ];
