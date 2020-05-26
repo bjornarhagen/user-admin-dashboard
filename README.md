@@ -3,7 +3,6 @@
 ## Installation
 
 1. `composer install`
-1. `npm install`
 1. Create a database
 1. Copy .env.example to .env and fill in info
 1. `php artisan migrate --seed`
@@ -12,4 +11,3 @@
 ## Usage
 
 1. `php artisan serve`
-1. `npm run dev`
