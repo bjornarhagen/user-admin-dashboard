@@ -11,7 +11,9 @@ class UserController extends Controller
     // Display a listing of users.
     public function index(Request $request, Customer $customer)
     {
-        $users = $customer->users;
+        // Get all the users which haven't been deleted
+        $users = $customer->users()->where('deleted', 0)->get();
+
         return view('users.index', compact('customer', 'users'));
     }
 
@@ -25,36 +27,51 @@ class UserController extends Controller
     public function store(Request $request, Customer $customer)
     {
         $user = new User;
+        $user->name_first = $request->name_first;
+        $user->name_last = $request->name_last;
+        $user->email = $request->email;
+        $user->phone_number = $request->phone_number;
+        $user->customer_id = $customer->id;
+        $user->validate();
         $user->save();
 
-        return redirect()->route('user.show', ['customer' => $customer, 'user' => $user]);
-    }
-
-    // Display the specified user.
-    public function show(Customer $customer, User $user)
-    {
-        return view('user.show', compact('customer', 'user'));
+        $request->session()->flash('success', __('The user was successfully created'));
+        return redirect()->route('user.index', $customer);
     }
 
     // Show the form for editing the specified user.
     public function edit(Customer $customer, User $user)
     {
-        return view('user.edit', compact('customer', 'user'));
+        return view('users.edit', compact('customer', 'user'));
     }
 
     // Update the specified user in storage.
     public function update(Request $request, Customer $customer, User $user)
     {
-        $user->name_first = $request->name_first;
-        $user->save();
+        // Make sure the user belongs to the spesified customer
+        if ($customer->id == $user->customer_id) {
+            $user->name_first = $request->name_first;
+            $user->name_last = $request->name_last;
+            $user->email = $request->email;
+            $user->phone_number = $request->phone_number;
+            $user->validate();
+            $user->save();
 
-        return redirect()->route('user.show', ['customer' => $customer, 'user' => $user]);
+            $request->session()->flash('success', __('The user was successfully updated'));
+            return redirect()->route('user.edit', ['customer' => $customer, 'user' => $user]);
+        }
+
+        $request->session()->flash('danger', __('You are not allowed to do that'));
+        return redirect()->route('index');
     }
 
-    // Remove the specified user from storage.
-    public function destroy(Customer $customer, User $user)
+    // Soft delete the specified user.
+    public function delete(Request $request, Customer $customer, User $user)
     {
-        $user->delete();
-        return redirect()->route('user.index', ['customer' => $customer, 'user' => $customer]);
+        $user->deleted = 1;
+        $user->save();
+
+        $request->session()->flash('warning', __('The user was deleted'));
+        return redirect()->route('user.index', $customer);
     }
 }

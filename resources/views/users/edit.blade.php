@@ -1,10 +1,11 @@
 @extends('partials.master')
 @section('content')
 <section class="container py-4">
-    <form class="card" method="POST" action="{{ route('user.store', $customer) }}">
+    <form class="card" method="POST" action="{{ route('user.update', ['customer' => $customer, 'user' => $user]) }}">
         @csrf
-        <div class=" card-header">
-            <strong>{{ __('Create a new user for :customer', ['customer' => $customer->name]) }}</strong>
+        @method('PATCH')
+        <div class="card-header">
+            <strong>{{ __('Edit :user', ['user' => $user->name]) . '\'s ' . __('user') }}</strong>
         </div>
         <div class="card-body">
             @include('users.form-fields')

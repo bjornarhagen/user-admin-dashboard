@@ -22,11 +22,12 @@ Route::get('customers', 'CustomerController@index')->name('customer.index');
 Route::get('customer/{customer}/users', 'UserController@index')->name('user.index');
 Route::prefix('customer/{customer}/user')->group(function () {
     Route::get('/create', 'UserController@create')->name('user.create');
-    Route::post('/create', 'UserController@store')->name('user.store');
+    Route::post('/store', 'UserController@store')->name('user.store');
 
     Route::prefix('{user}')->group(function () {
         Route::get('/', 'UserController@show')->name('user.show');
-        Route::patch('/', 'UserController@update')->name('user.update');
-        Route::delete('/', 'UserController@destroy')->name('user.destroy');
+        Route::get('/edit', 'UserController@edit')->name('user.edit');
+        Route::patch('/update', 'UserController@update')->name('user.update');
+        Route::delete('/delete', 'UserController@delete')->name('user.delete');
     });
 });

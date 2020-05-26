@@ -7,8 +7,13 @@
         </div>
         <ul class="list-group list-group-flush">
             @foreach ($users as $user)
-            <li class="list-group-item">
-                <a href="{{ route('user.index', ['customer' => $customer, 'user' => $user]) }}">{{ $user->name }}</a>
+            <li class="list-group-item d-flex justify-content-between">
+                <a href="{{ route('user.edit', ['customer' => $customer, 'user' => $user]) }}">{{ $user->name }}</a>
+                <form action="{{ route('user.delete', ['customer' => $customer, 'user' => $user]) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn py-0" type="submit">&times;</button>
+                </form>
             </li>
             @endforeach
         </ul>
