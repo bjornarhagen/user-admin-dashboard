@@ -1,4 +1,4 @@
-<nav id="nav-main" class="navbar navbar-expand navbar-dark bg-dark">
+<nav id="nav-main" class="navbar navbar-expand navbar-dark bg-dark flex-shrink-0">
     <div id="nav-main-wrapper" class="container">
         <a class="navbar-brand" href="{{ route('customer.index') }}">{{ config('app.name') }}</a>
 
