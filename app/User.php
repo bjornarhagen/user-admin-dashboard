@@ -35,7 +35,7 @@ class User extends Model
             'name_first' => ['required', 'string'],
             'name_last' => ['required', 'string'],
             'email' => ['required', 'email'],
-            'phone_number' => ['required', 'string'],
+            'phone_number' => ['required', 'numeric'],
             'customer_id' => ['required', 'in:' . $customer_ids],
         ]);
     }
