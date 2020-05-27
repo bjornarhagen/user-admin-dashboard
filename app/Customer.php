@@ -16,4 +16,10 @@ class Customer extends Model
     {
         return $this->hasMany('App\User');
     }
+
+    // Get all the active users in alphabetical order
+    public function getActiveUsersSortedAttribute()
+    {
+        return $this->users()->where('deleted', 0)->orderBy('name_first', 'asc')->get();
+    }
 }

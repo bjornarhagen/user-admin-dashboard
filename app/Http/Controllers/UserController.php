@@ -11,8 +11,7 @@ class UserController extends Controller
     // Display a listing of users.
     public function index(Request $request, Customer $customer)
     {
-        // Get all the users which haven't been deleted
-        $users = $customer->users()->where('deleted', 0)->get();
+        $users = $customer->activeUsersSorted;
 
         return view('users.index', compact('customer', 'users'));
     }
