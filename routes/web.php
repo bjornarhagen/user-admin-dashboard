@@ -25,7 +25,6 @@ Route::prefix('customer/{customer}/user')->group(function () {
     Route::post('/store', 'UserController@store')->name('user.store');
 
     Route::prefix('{user}')->group(function () {
-        Route::get('/', 'UserController@show')->name('user.show');
         Route::get('/edit', 'UserController@edit')->name('user.edit');
         Route::patch('/update', 'UserController@update')->name('user.update');
         Route::delete('/delete', 'UserController@delete')->name('user.delete');
