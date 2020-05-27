@@ -9,7 +9,7 @@
             @foreach ($users as $user)
             <li class="list-group-item d-flex justify-content-between">
                 <a href="{{ route('user.edit', ['customer' => $customer, 'user' => $user]) }}">{{ $user->name }}</a>
-                <form action="{{ route('user.delete', ['customer' => $customer, 'user' => $user]) }}" method="post">
+                <form class="user-delete" action="{{ route('user.delete', ['customer' => $customer, 'user' => $user]) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn py-0" type="submit">&times;</button>
@@ -22,4 +22,5 @@
         </div>
     </div>
 </section>
+<script src="/js/users.js"></script>
 @endsection
